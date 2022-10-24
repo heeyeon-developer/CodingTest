@@ -1,0 +1,17 @@
+# LEVEL 2
+1. 유저 테이블과 온라인 구매 테이블을 USER_ID를 통해 연결
+2. 2021년에 가입한 유저를 기준으로 하기 위해 where 절에 조건 추가 하고 중복된 유저 번호를 제거하기 위해 DISTINCT 사용
+3. 2021년에 가입한 유저의 월별 구매 비율을 알기 위해 서브쿼리로 2021년에 가입한 유저의 수 구하기
+4. ROUND를 사용하여 소수점 첫째자리까지의 비율 구하기
+
+
+```mysql
+SELECT YEAR(OS.SALES_DATE)AS YEAR, MONTH(OS.SALES_DATE)AS MONTH, COUNT(DISTINCT UI.USER_ID), 
+       ROUND(COUNT(DISTINCT UI.USER_ID)/(SELECT COUNT(DISTINCT U.USER_ID) FROM USER_INFO U WHERE YEAR(U.JOINED)='2021'),1)
+       AS PUCHASED_USERS
+  FROM USER_INFO UI
+       INNER JOIN ONLINE_SALE OS ON OS.USER_ID = UI.USER_ID
+ WHERE YEAR(UI.JOINED) = '2021'
+ GROUP BY MONTH
+ ORDER BY YEAR, MONTH
+ ```
