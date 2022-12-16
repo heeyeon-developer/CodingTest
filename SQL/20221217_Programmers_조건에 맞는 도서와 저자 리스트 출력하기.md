@@ -1,0 +1,14 @@
+# JOIN
+1. BOOK 테이블과 AUTHOR 테이블을 조인하기 위해 AUTHOR_ID 컬럼 사용
+2. '경제' 카테고리인 도서를 출력하기 위해 WHERE 절에 조건 추가
+3. PUBLISHED_DATE 를 예시 출력 양식과 동일하게 하기 위해 DATE_FORMAT() 사용
+4. PUBLISHED_DATE 기준으로 오름차순 정렬하기 위해 ORDER BY 추가
+
+
+```mysql
+SELECT B.BOOK_ID, A.AUTHOR_NAME, DATE_FORMAT(B.PUBLISHED_DATE, '%Y-%m-%d') AS PUBLISHED_DATE
+  FROM BOOK B
+       INNER JOIN AUTHOR A ON A.AUTHOR_ID = B.AUTHOR_ID
+ WHERE B.CATEGORY = '경제'
+ ORDER BY B.PUBLISHED_DATE 
+ ```
